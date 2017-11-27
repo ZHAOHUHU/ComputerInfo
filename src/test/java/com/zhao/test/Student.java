@@ -25,7 +25,7 @@ public class Student {
 	public void test1() {
 		ComputerInfo info = new ComputerInfo();
 		double d = info.getCpu();
-		System.out.println("CPU的利用率是："+d);
+		//System.out.println("CPU的利用率是："+d);
 //		double timeNet = info.getTimeNet("BC-AE-C5-6E-B8-FA");
 //		System.out.println("网络带宽的利用率是："+timeNet);
 	info.getNet("E0-05-C5-F1-6D-C0");

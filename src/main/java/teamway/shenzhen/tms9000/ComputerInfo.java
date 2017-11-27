@@ -149,23 +149,20 @@ public class ComputerInfo {
 			for(int i=0;i<+ifNames.length;i++) {
 				//name网卡名字
 				name=ifNames[i];
-				System.out.println(name);
 				NetInterfaceConfig ifconfig = sigar.getNetInterfaceConfig(name);
 				if(macaddress.equals(ifconfig.getHwaddr())) {
-					System.out.println(name);
-					break;
+			
 				}
+				break;
 			}
 			//获取网卡的状态对象io0
 			NetInterfaceStat stat = sigar.getNetInterfaceStat(name);
-			System.out.println(stat);
 			//获取接受的总字节数量
 			receiveBytes1=	stat.getRxBytes();
 			//获取发送的总字节数量
 			sendBytes1=stat.getTxBytes();
 			//总的通信字节数量
 			long totalBytes1=sendBytes1+receiveBytes1;
-			System.out.println(totalBytes1);
 			/*
 			 * 通过前一秒的通信字节数量和后
 			 * 一秒的通信字节数量的差值来计
@@ -185,11 +182,11 @@ public class ComputerInfo {
 			sendBytes2=stat.getTxBytes();
 			//总的通信字节数量
 			long totalBytes2=sendBytes2+receiveBytes2;
-			System.out.println(totalBytes2);
 			//截至时间
 			long endTime = System.currentTimeMillis();
 			//两次时间差的字节数
 			long totalBytes=totalBytes2-totalBytes1;
+			System.out.println(totalBytes);
 			double interval=(double)(endTime-startTime)/1000;
 			//网络带宽
 			double netspeed= (double)totalBytes*8/(1000000*interval);
