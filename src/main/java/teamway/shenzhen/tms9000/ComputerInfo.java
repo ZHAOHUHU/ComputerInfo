@@ -177,16 +177,15 @@ public class ComputerInfo {
 			}
 			NetInterfaceStat stat2 = sigar.getNetInterfaceStat(name);
 			//获取接受的总字节数量
-			 receiveBytes2=	stat.getRxBytes();
+			 receiveBytes2=	stat2.getRxBytes();
 			//获取发送的总字节数量
-			sendBytes2=stat.getTxBytes();
+			sendBytes2=stat2.getTxBytes();
 			//总的通信字节数量
 			long totalBytes2=sendBytes2+receiveBytes2;
 			//截至时间
 			long endTime = System.currentTimeMillis();
 			//两次时间差的字节数
 			long totalBytes=totalBytes2-totalBytes1;
-			System.out.println(totalBytes);
 			double interval=(double)(endTime-startTime)/1000;
 			//网络带宽
 			double netspeed= (double)totalBytes*8/(1000000*interval);
