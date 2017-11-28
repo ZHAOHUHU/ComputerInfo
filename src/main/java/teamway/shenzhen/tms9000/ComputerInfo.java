@@ -215,8 +215,8 @@ public class ComputerInfo {
 			long totalBytes = totalBytes2 - totalBytes1;
 			double interval = (double) (endTime - startTime) / 1000;
 			// 网络带宽
-			double netspeed = (double) totalBytes * 8 / (1000000 * interval);
-			// double netspeed=totalBytes/(interval*1000)*8/1024;
+			//double netspeed = (double) totalBytes * 8 / (1000000 * interval);
+			 double netspeed=totalBytes/(interval*1000)*8/1024;
 			return getForamte(netspeed);
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
