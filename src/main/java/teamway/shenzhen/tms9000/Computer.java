@@ -1,6 +1,6 @@
 package teamway.shenzhen.tms9000;
 
-public class Computer {
+public class Computer implements Runnable{
 	/*
 	 * CPU 内存 硬盘 网络带宽（多个线程轮番访问） 计算机名字
 	 */
@@ -14,6 +14,9 @@ public class Computer {
 	private double disk;
 	//网络带宽
 	private double net;
+	public Computer() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getName() {
 		return name;
 	}
@@ -51,6 +54,10 @@ public class Computer {
 		this.menmory = menmory;
 		this.disk = disk;
 		this.net = net;
+	}
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
