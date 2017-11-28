@@ -61,10 +61,10 @@ public class ComputerInfo {
 		
 		double cpu = getCpu();
 		double disk = getDisk(diskName);
-		getTimeNet(macaddress);
+		//getTimeNet(macaddress);
 		double menmory = getMenmory();
 		String string = getname();
-		 double net = computer.getNet();
+		 double net = getNet(macaddress);
 		
 		return new Computer(string, cpu,menmory, disk,net);
 	}
@@ -143,21 +143,22 @@ public class ComputerInfo {
 	 */
 
 	// ===========================================================================================
-	public void getTimeNet(final String macaddress) throws Exception {
-		Timer timer = new Timer();
-		TimerTask task = new TimerTask() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				double net = getNet(macaddress);
-				computer.setNet(net);
-				System.out.println(net);
-			}
-		};
-		timer.schedule(task, 0, 1000);
-
-	}
+//	public void getTimeNet(final String macaddress) throws Exception {
+//		Timer timer = new Timer();
+//		TimerTask task = new TimerTask() {
+//
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				double net = getNet(macaddress);
+//				computer.setNet(net);
+//				System.out.println(net);
+//			}
+//		};
+//		timer.schedule(task, 0, 1000);
+//
+//	}
+	//===============================================================================================
 
 	/*
 	 * 
