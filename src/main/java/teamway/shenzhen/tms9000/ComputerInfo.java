@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,14 +58,15 @@ public class ComputerInfo {
 	 * 总方法
 	 */
 	public Computer getComputerInfo(String macaddress, String diskName) throws Exception {
+		
 		double cpu = getCpu();
 		double disk = getDisk(diskName);
 		getTimeNet(macaddress);
 		double menmory = getMenmory();
 		String string = getname();
-
-		System.out.println(computer.getNet());
-		return new Computer(string, cpu, menmory, disk, computer.getNet());
+		 double net = computer.getNet();
+		
+		return new Computer(string, cpu,menmory, disk,net);
 	}
 
 	/*
@@ -89,7 +91,7 @@ public class ComputerInfo {
 		try {
 			CpuPerc perc = sigar.getCpuPerc();
 			double d = perc.getCombined();
-			return d;
+			return getForamte(d);
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,7 +111,7 @@ public class ComputerInfo {
 			// 已使用内存
 			long used = mem.getUsed();
 			double d = (double) used / total;
-			return d;
+			return getForamte(d);
 
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
@@ -129,7 +131,7 @@ public class ComputerInfo {
 		try {
 			FileSystemUsage usage = sigar.getFileSystemUsage(diskName);
 			double d = usage.getUsePercent();
-			return d;
+			return getForamte(d);
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,13 +216,21 @@ public class ComputerInfo {
 			double interval = (double) (endTime - startTime) / 1000;
 			// 网络带宽
 			double netspeed = (double) totalBytes * 8 / (1000000 * interval);
-			return netspeed;
+			// double netspeed=totalBytes/(interval*1000)*8/1024;
+			return getForamte(netspeed);
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
 
+	}
+	/*
+	 * 格式转换的方法
+	 */
+	private double getForamte(double f) {
+		BigDecimal bg = new BigDecimal(f);  
+        return bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();  
 	}
 
 }
