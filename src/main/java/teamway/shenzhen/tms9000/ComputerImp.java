@@ -1,23 +1,18 @@
 package teamway.shenzhen.tms9000;
 
 public class ComputerImp {
-	/*
-	 * 初始化
-	 */
-	public void initTimeNet(String macaddress) throws Exception {
-		ComputerInfo c=new ComputerInfo();
-		c.TimeNet(macaddress);
-	}
-
+	
 	/*
 	 * 
 	 */
-	public Computer getComputerInfo(String macaddress, String diskName) throws Exception {
+	public Computer getComputerInfo() throws Exception {
 		ComputerInfo c=new ComputerInfo();
-             double net = c.getTimeNet(macaddress);
-             Computer computer = new Computer();
-             computer.setNet(net);
-		return computer;
+             double net = c.getNet();
+             double cpu = c.getCpu();
+             double memmory = c.getMenmory();
+             String name = c.getname();
+             double disk = c.getDisk();
+		return new Computer(name, cpu, memmory, disk, net);
 	}
 
 }

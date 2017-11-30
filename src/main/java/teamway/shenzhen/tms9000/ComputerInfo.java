@@ -1,6 +1,8 @@
 package teamway.shenzhen.tms9000;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -8,6 +10,7 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,10 +31,10 @@ public class ComputerInfo {
 	/*
 	 * 初始化sigar对象
 	 */
-	static List<Object> list = new ArrayList<Object>();
-	final static Computer computer = new Computer();
 	public final static Sigar sigar = initSigar();
-	private String macaddress;
+	private static String macaddress = null;
+	private static String diskName = null;
+	
 
 	private static Sigar initSigar() {
 		try {
@@ -58,48 +61,47 @@ public class ComputerInfo {
 		}
 	}
 
-	public double getTimeNet(String macaddress) {
-
-		if (list.size() ==3) {
-          System.out.println("第二个元素是"+list.get(2));
-			return (Double) list.get(1);
-		}
-		return getNet(macaddress);
-	}
-
 	/*
 	 * 
-	 * =================================
+	 * ===定时器方法
 	 * 
 	 */
-	public void TimeNet(final String macaddress) throws Exception {
-		Timer timer = new Timer();
-		TimerTask task = new TimerTask() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				double net = getNet(macaddress);
-				System.out.println(net);
-				list.add(net);
-				System.out.println("集合的大小是"+list.size());
-				if (list.size() == 3) {
-					list.remove(0);
-				}
-			}
-		};
-
-		timer.schedule(task, 0, 1000);
-
-	}
+	// static {
+	//
+	// Timer timer = new Timer();
+	// TimerTask task = new TimerTask() {
+	// @Override
+	// public void run() {
+	// // TODO Auto-generated method stub
+	// double net = getNet(macaddress);
+	// System.out.println(net);
+	// list.add(net);
+	// System.out.println("集合的大小是"+list.size());
+	// if (list.size() == 3) {
+	// list.remove(0);
+	// }
+	// }
+	// };
+	//
+	// timer.schedule(task, 0, 1000);
+	// }
 	// ===============================================================================================
 
 	/*
 	 * 
 	 * 获取网络带宽的使用率
 	 */
-	public double getNet(String macaddress) {
-		this.macaddress = macaddress;
+	public double getNet() {
+		Properties p = new Properties();
+		InputStream in = Object.class.getResourceAsStream("/config/macaddress.properties");
+		try {
+			p.load(in);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		macaddress = p.getProperty("macaddress");
+
 		String name = "";
 		try {
 			long receiveBytes1 = 0L;
@@ -153,8 +155,7 @@ public class ComputerInfo {
 			double interval = (double) (endTime - startTime) / 1000;
 			// 网络带宽使用率
 			double netspeed = totalBytes / (interval * 1000) * 8 / 1024 / speed;
-			return netspeed;
-			//return getForamte(netspeed);
+			return getForamte(netspeed);
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -220,8 +221,16 @@ public class ComputerInfo {
 	 * 磁盘使用率d:/
 	 * 
 	 */
-	public double getDisk(String diskName) {
-
+	public double getDisk() {
+		Properties p = new Properties();
+		InputStream in2 = Object.class.getResourceAsStream("/config/diskName.properties");
+		try {
+			p.load(in2);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		diskName = p.getProperty("diskName");
 		try {
 			FileSystemUsage usage = sigar.getFileSystemUsage(diskName);
 			double d = usage.getUsePercent();
