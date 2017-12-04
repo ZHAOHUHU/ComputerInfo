@@ -23,12 +23,7 @@ public class ThreadProc  extends  Thread{
 		ThreadProc.rate = rate;
 	}
 
-
-
 	public void run() {
-		
-		
-		
 		for(;;) {
 			
 				Properties p = new Properties();
@@ -102,8 +97,6 @@ public class ThreadProc  extends  Thread{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		
-				
 				
 			
 		}
