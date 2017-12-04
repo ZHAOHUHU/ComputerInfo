@@ -1,0 +1,34 @@
+
+package teamway.shenzhen.tms9000;
+
+import org.apache.thrift.TException;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TFramedTransport;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.transport.TTransportException;
+
+public class ComputerClient {
+
+	public static void main(String[] args) {
+		 try {
+	           //设置传输通道，对于非阻塞服务，需要使用TFramedTransport，它将数据分块发送
+	            TTransport transport = new TFramedTransport(new TSocket("localhost", 10725));
+	            transport.open();
+	            // 协议要和服务端一致
+	            //HelloTNonblockingServer
+	            ////使用高密度二进制协议
+	            TProtocol protocol = new TBinaryProtocol(transport);
+	            ComputerService.Client client = new ComputerService.Client(protocol);
+	            Computer computer = client.getComputerInfo();
+	             String cpu = computer.toString();
+	            System.out.println(cpu);
+	            transport.close();
+	        } catch (TTransportException e) {
+	            e.printStackTrace();
+	        } catch (TException e) {
+	            e.printStackTrace();
+	        }
+	    }
+}
