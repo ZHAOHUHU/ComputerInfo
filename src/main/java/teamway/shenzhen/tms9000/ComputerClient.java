@@ -1,6 +1,8 @@
 
 package teamway.shenzhen.tms9000;
 
+import java.util.Date;
+
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -21,9 +23,18 @@ public class ComputerClient {
 	            ////使用高密度二进制协议
 	            TProtocol protocol = new TBinaryProtocol(transport);
 	            ComputerService.Client client = new ComputerService.Client(protocol);
-	            Computer computer = client.getComputerInfo();
-	             String cpu = computer.toString();
-	            System.out.println(cpu);
+	            
+	            for(int i=0;i<100;i++) {
+	            	long start=System.currentTimeMillis();
+	            	   Computer computer = client.getComputerInfo();
+	  	             String cpu = computer.toString();
+	  	            
+	  	             System.out.println(cpu);
+	            	
+	  	             long end=System.currentTimeMillis();
+	  	             System.out.println(end-start);
+	            }
+	         
 	            transport.close();
 	        } catch (TTransportException e) {
 	            e.printStackTrace();

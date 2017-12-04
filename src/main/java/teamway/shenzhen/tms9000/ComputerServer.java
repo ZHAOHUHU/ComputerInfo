@@ -27,7 +27,7 @@ public class ComputerServer {
 			tArgs.transportFactory(new TFramedTransport.Factory());
 			// 使用二进制协议
 			tArgs.protocolFactory(new TBinaryProtocol.Factory());
-			// 线程池服务模型，使用标准的阻塞式IO，预先创建一组线程处理请求。
+			// 线程池服务模型，
 			TServer server = new TNonblockingServer(tArgs);
 			System.out.println("Start server on " + port);
 			server.serve();
