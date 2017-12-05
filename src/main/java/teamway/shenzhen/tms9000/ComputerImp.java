@@ -13,7 +13,7 @@ public class ComputerImp implements Iface {
 		double memmory = c.getMenmory();
 		String name = c.getname();
 		double disk = c.getDisk();
-		return new Computer(name, cpu, memmory, disk, 0.0);
+		return new Computer(name, cpu, memmory, disk, net);
 	}
 
 }

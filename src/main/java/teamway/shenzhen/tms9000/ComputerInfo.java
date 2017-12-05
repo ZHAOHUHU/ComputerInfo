@@ -154,8 +154,11 @@ public class ComputerInfo {
 	 * 格式转换的方法
 	 */
 	public static double getForamte(double f) {
-		BigDecimal bg = new BigDecimal(f);
-		return bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		if(!Double.isNaN(f)) {
+			BigDecimal bg = new BigDecimal(f);
+			return bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		}
+		return 0;
 	}
 
 }

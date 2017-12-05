@@ -24,7 +24,7 @@ public class ComputerClient {
 	            TProtocol protocol = new TBinaryProtocol(transport);
 	            ComputerService.Client client = new ComputerService.Client(protocol);
 	            
-	            for(int i=0;i<100;i++) {
+	            for(int i=0;i<1000;i++) {
 	            	long start=System.currentTimeMillis();
 	            	   Computer computer = client.getComputerInfo();
 	  	             String cpu = computer.toString();
